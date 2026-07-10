@@ -7,10 +7,6 @@ export function useLeaderboard() {
   const [loading, setLoading] = useState(false);
 
   const fetchLeaderboard = useCallback(async () => {
-    if (!supabase) {
-      setEntries([]);
-      return [];
-    }
     setLoading(true);
     try {
       const { data, error } = await supabase
@@ -18,11 +14,7 @@ export function useLeaderboard() {
         .select('name, avatar, xp, level')
         .order('xp', { ascending: false })
         .limit(20);
-      if (error) {
-        console.error(error);
-        setEntries([]);
-        return [];
-      }
+      if (error) { console.error(error); setEntries([]); return []; }
       setEntries(data || []);
       return data || [];
     } finally {
@@ -31,7 +23,7 @@ export function useLeaderboard() {
   }, []);
 
   const submitScore = useCallback(async (profile, session) => {
-    if (!supabase || !session?.user || !profile?.name) return;
+    if (!session?.user || !profile?.name) return;
     try {
       await supabase.from('scholarquest_leaderboard').upsert(
         {
