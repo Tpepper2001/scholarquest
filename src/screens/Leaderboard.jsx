@@ -1,13 +1,9 @@
 import { useEffect } from 'react';
-import { supabase } from '../supabaseClient';
 
 const MEDALS = ['🥇', '🥈', '🥉'];
 
 export default function Leaderboard({ profile, entries, loading, fetchLeaderboard, onBack }) {
-  useEffect(() => {
-    fetchLeaderboard();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  useEffect(() => { fetchLeaderboard(); }, []); // eslint-disable-line
 
   return (
     <div className="max-w-lg mx-auto mt-4">
@@ -17,27 +13,20 @@ export default function Leaderboard({ profile, entries, loading, fetchLeaderboar
       <div className="bg-white rounded-3xl shadow-lg border border-[#EAF0FB] p-6 sm:p-7">
         <h2 className="font-display font-extrabold text-2xl mb-1">🏅 Leaderboard</h2>
         <p className="text-xs text-[var(--navy-soft)] font-semibold mb-5">
-          Top explorers across all quests. Names and scores here are visible to everyone.
+          Top explorers across all quests. Names and scores are visible to everyone.
         </p>
 
-        {!supabase && (
-          <div className="text-center py-8 text-sm font-bold text-[var(--navy-soft)]">
-            Leaderboard isn't connected yet. Add your Supabase URL and anon key as environment
-            variables to turn this on — see README.md.
-          </div>
-        )}
-
-        {supabase && loading && (
+        {loading && (
           <div className="text-center py-8 text-sm font-bold text-[var(--navy-soft)]">Loading scores…</div>
         )}
 
-        {supabase && !loading && entries.length === 0 && (
+        {!loading && entries.length === 0 && (
           <div className="text-center py-8 text-sm font-bold text-[var(--navy-soft)]">
             No explorers yet — be the first on the board!
           </div>
         )}
 
-        {supabase && !loading && entries.length > 0 && (
+        {!loading && entries.length > 0 && (
           <div className="space-y-2">
             {entries.map((e, i) => (
               <div
