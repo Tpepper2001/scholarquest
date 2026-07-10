@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{
+  --sky-top:#EAF6FF;
+  --sky-bottom:#DCEEFF;
+  --navy:#16213E;
+  --navy-soft:#233156;
+  --violet:#7C5CFC;
+  --violet-deep:#5E3FE0;
+  --gold:#FFB627;
+  --gold-deep:#E89A0C;
+  --coral:#FF6B6B;
+  --coral-deep:#E24C4C;
+  --mint:#06D6A0;
+  --mint-deep:#04B285;
+  --paper:#FFFFFF;
+}
+
+*{box-sizing:border-box;}
+
+body{
+  font-family:'Nunito',sans-serif;
+  background:linear-gradient(180deg,var(--sky-top) 0%, var(--sky-bottom) 55%, #CFE8FF 100%);
+  color:var(--navy);
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+  margin:0;
+}
+
+.font-display{font-family:'Baloo 2',sans-serif;}
+.font-mono{font-family:'JetBrains Mono',monospace;}
+
+.bg-orb{position:fixed;border-radius:50%;filter:blur(40px);opacity:.35;pointer-events:none;z-index:0;}
+
+.path-dot{transition:transform .25s ease, box-shadow .25s ease;}
+.path-dot:hover{transform:translateY(-4px) scale(1.04);}
+
+@keyframes floaty{0%,100%{transform:translateY(0px);}50%{transform:translateY(-8px);}}
+.floaty{animation:floaty 3.2s ease-in-out infinite;}
+
+@keyframes pop-in{0%{opacity:0;transform:scale(.85) translateY(8px);}100%{opacity:1;transform:scale(1) translateY(0);}}
+.pop-in{animation:pop-in .35s cubic-bezier(.2,1.4,.4,1) forwards;}
+
+@keyframes shake{10%,90%{transform:translateX(-1px);}20%,80%{transform:translateX(2px);}30%,50%,70%{transform:translateX(-4px);}40%,60%{transform:translateX(4px);}}
+.shake{animation:shake .5s ease;}
+
+@keyframes confetti-fall{0%{transform:translateY(-20px) rotate(0deg);opacity:1;}100%{transform:translateY(140px) rotate(400deg);opacity:0;}}
+.confetti-piece{position:absolute;top:0;animation:confetti-fall 1.1s ease-in forwards;border-radius:2px;}
+
+.option-btn{transition:all .15s ease; border-width:2.5px;}
+.option-btn:active{transform:scale(.98);}
+
+.badge-locked{filter:grayscale(1) opacity(.4);}
+
+button:focus-visible, [tabindex]:focus-visible{outline:3px solid var(--violet); outline-offset:2px;}
+
+@media (prefers-reduced-motion: reduce){
+  .floaty, .pop-in, .shake, .confetti-piece{animation:none !important;}
+}
